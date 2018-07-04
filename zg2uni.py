@@ -23,6 +23,12 @@ def convert(input):
 	output = re.sub(u'\u1039', u'\u103A',output)#nga_tat
 	output = re.sub(u'[\u1037\u1094\u1095]', u'\u1037',output)#aut_myit
 	output = re.sub(u'\u1086', u'\u103F',output)#tagyi
+	output = re.sub(u'\u1039', u'\u103A',output)#athat
+	output = re.sub(u'\u105A', u'\u102B\u103A',output)#yay_cha_athat
+	output = re.sub(u'\u108A', u'\u103D\u103E',output)#waswe_hahtoe
+	output = re.sub(u'\u1088', u'\u103E\u102F',output)#hahtoe_1chaung
+	output = re.sub(u'\u1089', u'\u103E\u1030',output)#hahtoe_2chaung
+	output = re.sub(u'\u104E', u'\u104E\u1004\u103A\u1038',output)#la_guang
 	#pa_sint
 	output = re.sub(u'\u1060', u'\u1039\u1000',output)#kagyi
 	output = re.sub(u'\u1061', u'\u1039\u1001',output)#ka_kway
@@ -49,5 +55,5 @@ def convert(input):
 	output = re.sub(u'\u107C', u'\u1039\u1019',output)#ma
 	output = re.sub(u'\u1085', u'\u1039\u101C',output)#la
 	#place
-	output = re.sub(u'((?:\u1031)?)((?:\u103C)?)([\u1000-\u1021])((?:\u103D)?)', u"\\3\\2\\4\\1",output);
+	output = re.sub(u'((?:\u1031)?)((?:\u103C)?)([\u1000-\u1021])((?:\u103D)?)((?:\u103E)?)((?:\u102C)?)((?:\u103B)?)', u"\\3\\2\\7\\4\\5\\1\\6",output);
 	return output
