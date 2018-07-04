@@ -49,5 +49,5 @@ def convert(input):
 	output = re.sub(u'\u107C', u'\u1039\u1019',output)#ma
 	output = re.sub(u'\u1085', u'\u1039\u101C',output)#la
 	#place
-	output = re.sub(u'((?:\u103C)?)([\u1000-\u1021])', u"\\2\\1",output);
+	output = re.sub(u'((?:\u1031)?)((?:\u103C)?)([\u1000-\u1021])((?:\u103D)?)', u"\\3\\2\\4\\1",output);
 	return output
