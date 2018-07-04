@@ -58,4 +58,5 @@ def convert(input):
 	output = re.sub(u'((?:\u1031)?)((?:\u103C)?)([\u1000-\u1021])((?:\u103D)?)((?:\u103E)?)((?:\u102C)?)((?:\u103B)?)', u"\\3\\2\\7\\4\\5\\1\\6",output);
 	#ngr_sint
 	output = re.sub(u'([\u1000-\u1021])\u1064', u'\u1064\\1',output)
+	output = re.sub(u'\u1064', u'\u1004\u103A\u1039',output)
 	return output
