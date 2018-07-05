@@ -7,6 +7,7 @@ def convert(input):
 	output = input
 
 	output = output.replace(u'\u106A', u'\u1009')
+	output = re.sub(u'\u1025(?=[\u1039\u102C])', u'\u1009', output)#nya lay-24
 	output = re.sub(u'[\u103D\u1087]', u'\u103E',output)#hahtoe
 	output = re.sub(u'\u103C', u'\u103D',output)#waswe
 	output = re.sub(u'[\u103B\u107E\u107F\u1080\u1081\u1082\u1083\u1084]',u'\u103C',output)#yayit
@@ -29,6 +30,8 @@ def convert(input):
 	output = re.sub(u'\u1088', u'\u103E\u102F',output)#hahtoe_1chaung
 	output = re.sub(u'\u1089', u'\u103E\u1030',output)#hahtoe_2chaung
 	output = re.sub(u'\u104E', u'\u104E\u1004\u103A\u1038',output)#la_guang
+	#place
+	output = re.sub(u'((?:\u1031)?)((?:\u103C)?)([\u1000-\u1021])((?:\u103D)?)((?:\u103B)?)((?:\u103E)?)((?:\u102C)?)', u"\\3\\2\\5\\4\\6\\1\\7",output);
 	#pa_sint
 	output = re.sub(u'\u1060', u'\u1039\u1000',output)#kagyi
 	output = re.sub(u'\u1061', u'\u1039\u1001',output)#ka_kway
@@ -54,8 +57,6 @@ def convert(input):
 	output = re.sub(u'[\u107B\u1093]', u'\u1039\u1018',output)#ba_gone
 	output = re.sub(u'\u107C', u'\u1039\u1019',output)#ma
 	output = re.sub(u'\u1085', u'\u1039\u101C',output)#la
-	#place
-	output = re.sub(u'((?:\u1031)?)((?:\u103C)?)([\u1000-\u1021])((?:\u103D)?)((?:\u103E)?)((?:\u102C)?)((?:\u103B)?)', u"\\3\\2\\7\\4\\5\\1\\6",output);
 	#ngr_sint
 	output = re.sub(u'([\u1000-\u1021])\u1064', u'\u1064\\1',output)
 	output = re.sub(u'\u1064', u'\u1004\u103A\u1039',output)
