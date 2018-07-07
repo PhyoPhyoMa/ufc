@@ -45,8 +45,20 @@ def precompose(input):
     output = re.sub(u'[\u107B\u1093]', u'\u1039\u1018', output)  # ba_gone
     output = re.sub(u'\u107C', u'\u1039\u1019', output)  # ma
     output = re.sub(u'\u1085', u'\u1039\u101C', output)  # la
+
+    return output
+
+def logical2visual(input):
+    output = input
+
+    output = re.sub(u'([\u1000-\u1021])((?:\u103B)?)((?:\u1031)?)', '\\3\\2\\1', output)#1=letters,2=yayit,3=tawaihtoe
+
+    return output
+
 def convert(input):
     output = input
 
     output = replace(output)
+    output = precompose(output)
+    output = logical2visual(output)
     return output
