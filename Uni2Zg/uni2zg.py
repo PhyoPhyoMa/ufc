@@ -23,6 +23,10 @@ def precompose(input):
 	# ngr_sint
 	output = re.sub(u'\u1004\u103A\u1039', u'\u1064', output)
 	output = re.sub(u'(\u1064)([\u1000-\u1021])', u'\\2\\1', output)
+	output = re.sub(u'(\u102D\u1036)', u'\u108E', output)#lone_gyi_tin_tai_tai_tin
+	output = re.sub(u'(\u1064)([\u1000-\u1021])\u102D', u'\\1\u108B', output)#with lone_gyi_tin
+	output = re.sub(u'(\u1064)([\u1000-\u1021])\u102E', u'\\1\u108C', output)#with lone_gyi_tin_san_khat
+	output = re.sub(u'(\u1064)([\u1000-\u1021])\u1036', u'\\1\u108D', output)#with tai_tai_tin
 
 	#pa_sint
 	output = re.sub(u'\u1039\u1000', u'\u1060', output)  # kagyi
@@ -55,7 +59,7 @@ def precompose(input):
 def logical2visual(input):
 	output = input
 
-	# 1=letters,
+	# 1=letters,2=yayit,3=yapint,4=waswe,5=hahtoe,6=waswe_hahtoe,7=tha_wai_htoe,8=yay_cha
 	output = re.sub(u'([\u1000-\u1021])((?:\u103B)?)((?:\u103A)?)((?:\u103C)?)((?:\u103D)?)((?:\u108A)?)((?:\u1031)?)((?:\u102C)?)', '\\7\\2\\1\\3\\4\\5\\6\\8', output)
 
 	return output
@@ -67,16 +71,19 @@ def shape(input):
 	output = re.sub(u'\u103B([\u1000])', u'\u107E\\1', output)#yayit(107E)
 	output = re.sub(u'\u107E([\u1000-\u1021])([\u102D\u102E\u1036])', u'\u1080\\1\\2', output)  # yait(1080)
 	output = re.sub(u'\u103B([\u1000-\u1021])([\u102D\u102E\u1036])', u'\u107F\\1\\2', output)#yayiy(107F)
+
 	#ta_chaung_ngin
 	output = re.sub(u'([\u103B\u107E\u107F\u1080\u1081\u1082\u1083\u1084])([\u1000-\u1021])((?:[\u102D\u102E\u1036])?)\u102F', u'\\1\\2\\3\u1033', output)#with yayit
 	output = re.sub(u'([\u103A\u107D])((?:[\u102D\u102E\u1036])?)\u102F', u'\\1\\2\u1033', output)#with yapint
 	output = re.sub(u'\u103D\u102F', u'\u1088', output)#with hahtoe
+
 	#ta_chaung_ngin with pa_sint
 	output = re.sub(u'([\u1060-\u1063])((?:[\u102D\u102E])?)\u102f', u'\\1\\2\u1033', output)
 	output = re.sub(u'([\u1065-\u1069])((?:[\u102D\u102E])?)\u102f', u'\\1\\2\u1033', output)
 	output = re.sub(u'([\u106C\u106D])((?:[\u102D\u102E])?)\u102f', u'\\1\\2\u1033', output)
 	output = re.sub(u'([\u1070-\u107C])((?:[\u102D\u102E])?)\u102f', u'\\1\\2\u1033', output)
 	output = re.sub(u'([\u1085\u1093])((?:[\u102D\u102E])?)\u102f', u'\\1\\2\u1033', output)
+
 	# 2_chaung_ngin
 	output = re.sub(u'([\u103B\u107E\u107F\u1080\u1081\u1082\u1083\u1084])([\u1000-\u1021])((?:[\u102D\u102E\u1036])?)\u1030',u'\\1\\2\\3\u1034', output)  # with yayit
 	output = re.sub(u'([\u103A\u107D])((?:[\u102D\u102E\u1036])?)\u1030', u'\\1\\2\u1034', output)  # with yapint
@@ -84,23 +91,30 @@ def shape(input):
 
 	#yapint
 	output = re.sub(u'\u103A([\u103C\u103D])', u'\u107D\\1', output)
+
 	#aut_myint
 	output = re.sub(u'([\u1014\u101B\u1008\u1030\u1033\u102F\u1034])((?:[\u1032\u1036])?)\u1037', u'\\1\\2\u1094', output)
 	output = re.sub(u'([\u103C\u103D\u108A\u1088])((?:[\u1032\u1036])?)\u1037', u'\\1\\2\u1095', output)
+
 	#na_nge
 	output = re.sub(u'\u1014([\u103C\u103D\u108A])', u'\u108F\\1', output)
+
 	#na_nge with pr_sint
 	output = re.sub(u'\u1014((?:[\u102D\u102E])?)([\u1060-\u1063])', u'\u108F\\1\\2', output)
 	output = re.sub(u'\u1014((?:[\u102D\u102E])?)([\u1065-\u1069])', u'\u108F\\1\\2', output)
 	output = re.sub(u'\u1014((?:[\u102D\u102E])?)([\u106C\u106D])', u'\u108F\\1\\2', output)
 	output = re.sub(u'\u1014((?:[\u102D\u102E])?)([\u1070-\u107C])', u'\u108F\\1\\2', output)
 	output = re.sub(u'\u1014((?:[\u102D\u102E])?)([\u1085\u1093])', u'\u108F\\1\\2', output)
+
 	#hahtoe
 	output = re.sub(u'(\u100A)\u103D', u'\\1\u1087', output)#with nya
+
 	# nya_lay
 	output = re.sub(u'\u1009(\u1039)', u'\u1025\\1', output)
+
 	#ya_kaut
 	output = re.sub(u'\u101B\u108A', u'\u1090\u108A', output)#with waswe and waswe_hahtoe
+
 	# ya_kaut with pr_sint
 	output = re.sub(u'\u101B((?:[\u102D\u102E])?)([\u1060-\u1063])', u'\u1090\\1\\2', output)
 	output = re.sub(u'\u101B((?:[\u102D\u102E])?)([\u1065-\u1069])', u'\u1090\\1\\2', output)
