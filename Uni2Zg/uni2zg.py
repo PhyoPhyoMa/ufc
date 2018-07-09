@@ -75,7 +75,7 @@ def shape(input):
 	#ta_chaung_ngin
 	output = re.sub(u'([\u103B\u107E\u107F\u1080\u1081\u1082\u1083\u1084])([\u1000-\u1021])((?:[\u102D\u102E\u1036])?)\u102F', u'\\1\\2\\3\u1033', output)#with yayit
 	output = re.sub(u'([\u103A\u107D])((?:[\u102D\u102E\u1036])?)\u102F', u'\\1\\2\u1033', output)#with yapint
-	output = re.sub(u'\u103D\u102F', u'\u1088', output)#with hahtoe
+	#output = re.sub(u'\u103D\u102F', u'\u1088', output)#with hahtoe
 
 	#ta_chaung_ngin with pa_sint
 	output = re.sub(u'([\u1060-\u1063])((?:[\u102D\u102E])?)\u102f', u'\\1\\2\u1033', output)
@@ -113,7 +113,8 @@ def shape(input):
 	output = re.sub(u'\u1009(\u1039)', u'\u1025\\1', output)
 
 	#ya_kaut
-	output = re.sub(u'\u101B\u108A', u'\u1090\u108A', output)#with waswe and waswe_hahtoe
+	#output = re.sub(u'\u101B\u108A', u'\u1090\u108A', output)#with waswe and waswe_hahtoe
+	output = re.sub(u'\u101B\u102F', u'\u1090\u102F', output)#with ta_chaung_ngin
 
 	# ya_kaut with pr_sint
 	output = re.sub(u'\u101B((?:[\u102D\u102E])?)([\u1060-\u1063])', u'\u1090\\1\\2', output)
