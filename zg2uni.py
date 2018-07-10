@@ -2,7 +2,7 @@
 import re
 
 
-def convert(input):
+def replace(input):
 
 	output = input
 
@@ -30,8 +30,17 @@ def convert(input):
 	output = re.sub(u'\u1088', u'\u103E\u102F',output)#hahtoe_1chaung
 	output = re.sub(u'\u1089', u'\u103E\u1030',output)#hahtoe_2chaung
 	output = re.sub(u'\u104E', u'\u104E\u1004\u103A\u1038',output)#la_guang
+
+	return output
+
+def visual2logical(input):
+	output = input
 	#place
 	output = re.sub(u'((?:\u1031)?)((?:\u103C)?)([\u1000-\u1021])((?:\u103D)?)((?:\u103B)?)((?:\u103E)?)((?:\u102C)?)', u"\\3\\2\\5\\4\\6\\1\\7",output);
+	return output
+
+def decompose(input):
+	output = input
 	#pa_sint
 	output = re.sub(u'\u1060', u'\u1039\u1000',output)#kagyi
 	output = re.sub(u'\u1061', u'\u1039\u1001',output)#ka_kway
@@ -60,4 +69,15 @@ def convert(input):
 	#ngr_sint
 	output = re.sub(u'([\u1000-\u1021])\u1064', u'\u1064\\1',output)
 	output = re.sub(u'\u1064', u'\u1004\u103A\u1039',output)
+	output = re.sub(u'([\u1000-\u1021])\u108b', u'\u1064\\1\u102d', output)#with lone_gyi_tin
+	output = re.sub(u'([\u1000-\u1021])\u108c', u'\u1064\\1\u102e', output)#with lone_gyi_tin_san_khat
+	output = re.sub(u'([\u1000-\u1021])\u108d', u'\u1064\\1\u1036', output)#with ta_ta_tin
+	output = re.sub(u'\u108e', u'\u102d\u1036', output)#lone_gyi_tin_ta_ta_tin
+	return output
+
+def convert(input):
+	output = input
+	output = replace(output)
+	output = decompose(output)
+	output = visual2logical(output)
 	return output
