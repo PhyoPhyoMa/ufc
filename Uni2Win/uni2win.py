@@ -53,7 +53,7 @@ def replace(input):
 	output = re.sub(u'\u1023', u'\u00A3', output)#ei
 	output = re.sub(u'\u1024', u'\u00FE', output)#eii
 	output = re.sub(u'\u1025', u'\u004F', output)#atkara u
-	#output = re.sub(u'\u1026', u'\u004F\u0044', output)  # atkara u with lone-gyi-tin-sankhat
+	output = re.sub(u'\u1026', u'\u004F\u0044', output)  # atkara u with lone-gyi-tin-sankhat
 	output = re.sub(u'\u1027', u'\u007B', output)#a
 	output = re.sub(u'\u102B', u'\u0067', output)#yay_cha ashay
 	output = re.sub(u'\u102C', u'\u006D', output)#yay_cha ato
@@ -82,12 +82,13 @@ def replace(input):
 	output = re.sub(u'\u0053\u006B', u'\u0049', output)  # hahtoe_1chaung
 	output = re.sub(u'\u103E\u1030', u'\u00AA', output)#hahtoe_2chaung
 	output = re.sub(u'\u104C', u'\u00FC', output)#nite
-	#----------------------------------------------------
 	output = re.sub(u'\u103C\u103D', u'\u003E', output)#yayit_waswe
 	output = re.sub(u'\u103C\u102F', u'\u00FB', output)#yayit_tachaungngin
 	output = re.sub(u'\u103B\u103E', u'\u0051', output)#yapint_hahtoe
 	output = re.sub(u'\u103B\u103D', u'\u0052', output)#yapint_waswe
 	output = re.sub(u'\u103B\u103D\u103E', u'\u0057', output)#yapint_waswe_hahtoe
+	output = re.sub(u'\u0067\u0066', u'\u003A', output)#yay-cha-shay with shae-htoe
+	output = re.sub(u'\u0047\u0053', u'\u0054', output)#waswe-hahtoe
 
 
 	return output
@@ -121,14 +122,6 @@ def precompose(input):
 	output = re.sub(u'\u1039\u0062', u'\u00C7', output)#ba_gone
 	output = re.sub(u'\u1039\u0072', u'\u00AE', output)#ma
 	output = re.sub(u'\u1039\u0076', u'\u0019', output)#la
-	#ngr_sint
-	output = re.sub(u'([\u1000-\u1021])\u0046', u'\u0046\\1',output)
-	output = re.sub(u'\u1004\u103A\u1039', u'\u0046', output)
-	output = re.sub(u'([\u1000-\u1021])\u0046\u102d', u'\\1\u00D8', output)#with lone_gyi_tin
-	output = re.sub(u'([\u1000-\u1021])\u0046\u102e', u'\\1\u00D0', output)#with lone_gyi_tin_san_khat
-	output = re.sub(u'([\u1000-\u1021])\u0046\u1036', u'\\1\u00F8', output)#with ta_ta_tin
-	output = re.sub(u'\u102d\u1036', u'\u00F0', output)#lone_gyi_tin_ta_ta_tin
-
 
 	return output
 
@@ -137,6 +130,15 @@ def logical2visual(input):
 	output = input
 	#place
 	output = re.sub(u'([\u1000-\u1021])((?:\u103C)?)((?:\u103B)?)((?:\u103D)?)((?:\u103E)?)((?:\u1031)?)((?:\u102C)?)','\\6\\2\\1\\3\\4\\5\\7', output)
+
+	# ngr_sint
+	output = re.sub(u'\u102d\u1036\u1039', u'\u00F0', output)  # lone_gyi_tin_ta_ta_tin
+	output = re.sub(u'\u1004\u103A\u1039', u'\u0046', output)
+	output = re.sub(u'(\u0046)([\u1000-\u1021])', u'\\2\\1', output)
+	output = re.sub(u'([\u1000-\u1021])\u0046\u102d', u'\\1\u00D8', output)  # with lone_gyi_tin
+	output = re.sub(u'([\u1000-\u1021])\u0046\u102e', u'\\1\u00D0', output)  # with lone_gyi_tin_san_khat
+	output = re.sub(u'([\u1000-\u1021])\u0046\u1036', u'\\1\u00F8', output)  # with ta_ta_tin
+
 	return output
 
 
@@ -155,7 +157,9 @@ def shape(input):
 	output = re.sub(u'([\u100E-\u101F])((?:[\u102D\u102E\u1036])?)((?:\u103E)?)\u102F', u'\\1\\2\\3\u006B',output)#dayinmot-ha
 	output = re.sub(u'(\u1021)((?:[\u102D\u102E])?)((?:\u103E)?)\u102F', u'\\1\\2\\3\u006B',output)#a
 	output = re.sub(u'\u004D([\u1000-\u1021])\u006B', u'\u00EA\\1', output)  # yayit-agyi with ta-chaung-ngin
+	output = re.sub(u'\u0042([\u1000-\u1021])\u102D\u006B', u'\u0042\\1\u0064\u004B', output)  # yayit-agyi with ta-chaung-ngin and lone-gyi-tin
 	output = re.sub(u'\u103C([\u1000-\u1021])\u006B', u'\u00FB\\1', output)  # yayit-atay with ta-chaung-ngin
+	output = re.sub(u'\u004E([\u1000-\u1021])\u102D\u006B', u'\u004E\\1\u0064\u004B', output)  # yayit-atay with ta-chaung-ngin and lone-gyi-tin
 	output = re.sub(u'\u1039([\u1000-\u1021])((?:[\u102d\u102e])?)\u006B', u'\u1039\\1\\2\u004B', output)# ta-chaung-ngin with pr_sint
 
 	# 2_chaung_ngin
@@ -183,17 +187,7 @@ def shape(input):
 
 
 	#ya_kaut
-	#output = re.sub(u'\u101B\u108A', u'\u1090\u108A', output)#with waswe and waswe_hahtoe
-	#output = re.sub(u'\u101B\u102F', u'\u1090\u102F', output)#with ta_chaung_ngin
-	output = re.sub(u'\u101B((?:[\u102D\u102E\u1032])?)([\u102F\u1030\u103D\u006B\u006C])', u'\u00BD\\1\\2', output)
-
-	# ya_kaut with pr_sint
-	#output = re.sub(u'\u101B((?:[\u102D\u102E])?)([\u1060-\u1063])', u'\u1090\\1\\2', output)
-	#output = re.sub(u'\u101B((?:[\u102D\u102E])?)([\u1065-\u1069])', u'\u1090\\1\\2', output)
-	#output = re.sub(u'\u101B((?:[\u102D\u102E])?)([\u106C\u106D])', u'\u1090\\1\\2', output)
-	#output = re.sub(u'\u101B((?:[\u102D\u102E])?)([\u1070-\u107C])', u'\u1090\\1\\2', output)
-	#output = re.sub(u'\u101B((?:[\u102D\u102E])?)([\u1085\u1093])', u'\u1090\\1\\2', output)
-
+	output = re.sub(u'\u101B((?:[\u102D\u102E\u1032])?)([\u102F\u1030\u103D\u006B\u006C\u0054])', u'\u00BD\\1\\2', output)
 
 	return output
 
